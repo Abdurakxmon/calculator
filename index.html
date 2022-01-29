@@ -21,7 +21,7 @@
 			  top: 50%;
 			  left: 50%;
 			  transform: translate(-50%, -50%);
-			  width: 400px;
+			  width: 620px;
 			}
 
 			.calculator-screen {
@@ -38,6 +38,7 @@
 
 			button {
 			  height: 60px;
+			  width: 100px;
 			  background-color: #fff;
 			  border-radius: 3px;
 			  border: 1px solid #c4c4c4;
@@ -72,7 +73,7 @@
 			  border-color: #337cac;
 			  color: #fff;
 			  height: 100%;
-			  grid-area: 2 / 4 / 6 / 5;
+			  grid-area: 1 / 5 / 7 / 5;
 			}
 
 			.equal-sign:hover {
@@ -81,9 +82,21 @@
 
 			.calculator-keys {
 			  display: grid;
-			  grid-template-columns: repeat(4, 1fr);
+			  grid-template-columns: repeat(5, 1fr);
 			  grid-gap: 20px;
 			  padding: 20px;
+			}
+			.zero{
+				width: 100%;
+				grid-area: 6 / 1 / 7 / 3;
+			}
+			.del{
+				border-color: #FF4800;
+				background: #FF986E;
+				color: #fff;
+			}
+			.del:hover {
+			  background-color: #FF8859;
 			}
 	</style>
 
@@ -96,29 +109,42 @@
 
   <div class="calculator-keys">
 
+
+    <button type="button" class="operator" onclick="to_top()">x<sup>2</sup></button>
+    <button type="button" class="operator" onclick="to_bottom()">√x</button>
+  	<button type="button" class="all-clear" onclick="clean()">AC</button>
+    <button type="button" class="del" onclick="del()">DEL</button>
+
+    
     <button type="button" class="operator" onclick="calc('+')">+</button>
     <button type="button" class="operator" onclick="calc('-')">-</button>
     <button type="button" class="operator" onclick="calc('*')">&times;</button>
     <button type="button" class="operator" onclick="calc('/')">&divide;</button>
 
-    <button type="button" onclick="number(7)">7</button>
-    <button type="button" onclick="number(8)">8</button>
-    <button type="button" onclick="number(9)">9</button>
+
+    <button type="button" onclick="number('7')">7</button>
+    <button type="button" onclick="number('8')">8</button>
+    <button type="button" onclick="number('9')">9</button>
+    <button type="button" class="operator" onclick="to_two()">2-lik</button>
 
 
-    <button type="button" onclick="number(4)">4</button>
-    <button type="button" onclick="number(5)">5</button>
-    <button type="button" onclick="number(6)">6</button>
+    <button type="button" onclick="number('4')">4</button>
+    <button type="button" onclick="number('5')">5</button>
+    <button type="button" onclick="number('6')">6</button>
+    <button type="button" class="operator" onclick="to_eight()">8-lik</button>
 
 
-    <button type="button" onclick="number(1)">1</button>
-    <button type="button" onclick="number(2)">2</button>
-    <button type="button" onclick="number(3)">3</button>
+    <button type="button" onclick="number('1')">1</button>
+    <button type="button" onclick="number('2')">2</button>
+    <button type="button" onclick="number('3')">3</button>
+    <button type="button" class="operator" onclick="sin()">sin</button>
 
 
-    <button type="button" onclick="number(0)">0</button>
+    <button type="button" class="zero" onclick="number('0')">0</button>
     <button type="button" class="decimal" onclick="number('.')">.</button>
-    <button type="button" class="all-clear" onclick="clean()">AC</button>
+    <button type="button" class="operator" onclick="cos()">cos</button>
+
+    
 
     <button type="button" class="equal-sign" onclick="finish()">=</button>
 
@@ -129,9 +155,12 @@
 	var num_1 =0;
 	var num_2 = 0;
 	var praxis = '';
+	function console(){
+		document.getElementById('ans').value = num;
+	}
 	function number(n) {
-		document.getElementById('ans').value += n;
 		num+=n;
+		console()
 	}
 	function calc(n){
 		praxis = n;
@@ -151,20 +180,49 @@
 		num_2=+num;
 		switch(praxis){
 			case '+':
-				document.getElementById('ans').value = (num_1+num_2);
+				
+				num=num_1+num_2;
 			break;
 			case '-':
-			    document.getElementById('ans').value = (num_1-num_2);
+			    num=num_1-num_2;
 			break;
 			case '*':
-			    document.getElementById('ans').value = (num_1*num_2);
+			    num=num_1*num_2;
 			break;
 			case '/':
-			    document.getElementById('ans').value = (num_1/num_2);
+			    num=num_1/num_2;
 			break;
 		}
+		console()
 	}
-
+	function del(){
+		num=(num-num%10)/10;
+		console()
+	}
+	function to_top(){
+		num*=num;
+		console()
+	}
+	function to_bottom(){
+		num=Math.pow(num,0.5);
+		console()
+	}
+	function to_two(){
+		num=Number(num).toString(2);
+		console()
+	}
+	function to_eight(){
+		num=Number(num).toString(8);
+		console()
+	}
+	function sin(){
+		num=Math.sin(num);
+		console()
+	}
+	function cos(){
+		num=Math.cos(num);
+		console()
+	}
 </script>
 </body>
 </html>
